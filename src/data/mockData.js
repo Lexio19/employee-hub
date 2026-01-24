@@ -154,7 +154,6 @@ export const shifts = [
     type: "Noche"
   }
 ];
-
 export const shiftSwapRequests = [
   {
     id: 1,
@@ -163,11 +162,13 @@ export const shiftSwapRequests = [
     shiftId: 1,
     shiftDate: "2026-01-20",
     shiftTime: "09:00 - 17:00",
+    shiftType: "Mañana",
     targetEmployeeId: null,
     targetEmployeeName: null,
     status: "pending",
     reason: "Asunto personal",
-    createdAt: "2026-01-18"
+    createdAt: "2026-01-18",
+    rejectedBy: [] // Añadir este campo
   }
 ];
 

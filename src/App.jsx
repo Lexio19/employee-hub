@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ShiftProvider } from './contexts/ShiftContext';
 import Layout from './components/layout/Layout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -25,52 +26,54 @@ function PrivateRoute({ children }) {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/payslips"
-            element={
-              <PrivateRoute>
-                <Payslips />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/vacations"
-            element={
-              <PrivateRoute>
-                <Vacations />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/shifts"
-            element={
-              <PrivateRoute>
-                <Shifts />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </BrowserRouter>
+      <ShiftProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/payslips"
+              element={
+                <PrivateRoute>
+                  <Payslips />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/vacations"
+              element={
+                <PrivateRoute>
+                  <Vacations />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/shifts"
+              element={
+                <PrivateRoute>
+                  <Shifts />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </BrowserRouter>
+      </ShiftProvider>
     </AuthProvider>
   );
 }
