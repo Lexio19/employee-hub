@@ -6,23 +6,23 @@
 
 > Sistema completo de gestión para empleados con autenticación, gestión de nóminas, vacaciones y cambio de turnos automatizado.
 
-## 🎯 Descripción del Proyecto
+## 🎯 Descripción del proyecto
 
 **EmployeeHub** es una aplicación web moderna diseñada para centralizar toda la gestión del empleado en una única plataforma intuitiva. Permite a los trabajadores consultar sus nóminas, solicitar vacaciones y gestionar cambios de turno **sin necesidad de intervención de RRHH**, optimizando el tiempo y mejorando la experiencia del empleado.
 
 ### 🌟 Características Principales
 
-- ✅ **Autenticación Segura** - Sistema de login con JWT y persistencia de sesión
-- 💰 **Gestión de Nóminas** - Visualización y descarga de recibos salariales
-- 🏖️ **Sistema de Vacaciones** - Solicitud y seguimiento de días libres con cálculo automático
-- 🔄 **Cambio de Turnos Inteligente** - Solicitudes automáticas sin coordinación manual entre empleados
-- 📊 **Dashboard Informativo** - Vista general de métricas importantes del empleado
-- 👤 **Perfil Personalizado** - Gestión de información personal y laboral
-- 🎨 **Diseño Responsive** - Interfaz moderna con Tailwind CSS
+- ✅ **Autenticación segura** - Sistema de login con JWT y persistencia de sesión
+- 💰 **Gestión de nóminas** - Visualización y descarga de recibos salariales
+- 🏖️ **Sistema de vacaciones** - Solicitud y seguimiento de días libres con cálculo automático
+- 🔄 **Cambio de turnos inteligente** - Solicitudes automáticas sin coordinación manual entre empleados
+- 📊 **Dashboard informativo** - Vista general de métricas importantes del empleado
+- 👤 **Perfil personalizado** - Gestión de información personal y laboral
+- 🎨 **Diseño responsive** - Interfaz moderna con Tailwind CSS
 
 ## 🚀 Demo
 
-### Capturas de Pantalla
+### Capturas de pantalla
 
 #### Login
 ![Login](https://via.placeholder.com/800x450/4F46E5/FFFFFF?text=Login+Screen)
@@ -35,7 +35,7 @@
 
 ### 🎥 [Ver Demo en Vivo](https://tu-proyecto.vercel.app) *(Próximamente)*
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías utilizadas
 
 ### Frontend
 - **React 18.3** - Biblioteca de JavaScript para interfaces de usuario
@@ -78,7 +78,7 @@ npm run dev
 http://localhost:5173
 ```
 
-## 🔐 Usuarios de Prueba
+## 🔐 Usuarios de prueba
 
 Para probar la aplicación, usa estas credenciales:
 
@@ -88,7 +88,7 @@ Para probar la aplicación, usa estas credenciales:
 | maria.garcia@empresa.com | 123456 | Diseñadora UX |
 | carlos.lopez@empresa.com | 123456 | Desarrollador Junior |
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del proyecto
 ```
 employee-hub/
 ├── src/
@@ -118,32 +118,32 @@ employee-hub/
 └── README.md
 ```
 
-## 🎓 Características Técnicas Destacadas
+## 🎓 Características técnicas destacadas
 
-### 1. Arquitectura Escalable
+### 1. Arquitectura escalable
 - Separación de responsabilidades con contextos de React
 - Componentes reutilizables y modulares
 - Rutas protegidas con autenticación
 
-### 2. Gestión de Estado
+### 2. Gestión de estado
 - Context API para estado global
 - LocalStorage para persistencia de sesión
 - Estados locales optimizados
 
-### 3. UX/UI Moderna
+### 3. UX/UI moderna
 - Diseño limpio y profesional
 - Animaciones y transiciones suaves
 - Feedback visual en todas las acciones
 - Sistema de colores coherente
 
-### 4. Sistema de Turnos Innovador
+### 4. Sistema de turnos innovador
 El algoritmo de cambio de turnos permite:
 - Solicitudes sin coordinación manual
 - Notificación automática a empleados compatibles
 - Primer compañero en aceptar confirma el cambio
 - Historial completo de solicitudes
 
-## 🚧 Próximas Funcionalidades
+## 🚧 Próximas funcionalidades
 
 - [ ] Backend con Node.js + Express
 - [ ] Base de datos MongoDB
@@ -170,7 +170,7 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ## 👨‍💻 Autor
 
-**Tu Nombre**
+**TAlejandro Miras Andújar**
 - GitHub: [@TU_USUARIO](https://github.com/TU_USUARIO)
 - LinkedIn: [Tu Perfil](https://linkedin.com/in/tu-perfil)
 - Portfolio: [tu-portfolio.com](https://tu-portfolio.com)
@@ -185,63 +185,3 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 ⭐ Si este proyecto te resultó útil, considera darle una estrella en GitHub
 ```
-
-## Paso 24: Crear archivo .gitignore (si no existe)
-
-Verifica que tengas `.gitignore` en la raíz con este contenido:
-```
-# Dependencias
-node_modules/
-
-# Build
-dist/
-dist-ssr/
-*.local
-
-# Editor
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment
-.env
-.env.local
-.env.production
-
-# Sistema
-.DS_Store
-Thumbs.db
-```
-
-## Paso 25: Crear LICENSE
-
-Crea el archivo `LICENSE` en la raíz:
-```
-MIT License
-
-Copyright (c) 2026 Alejandro Miras Andújar
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
