@@ -3,6 +3,10 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import 'dotenv/config'; 
+
+console.log('🔑 JWT_SECRET cargado:', process.env.JWT_SECRET ? 'Sí ✅' : 'No ❌');
+console.log('📦 MONGODB_URI cargado:', process.env.MONGODB_URI ? 'Sí ✅' : 'No ❌');
 
 // Importar rutas
 import authRoutes from './routes/authRoutes.js';
