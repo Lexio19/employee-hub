@@ -17,22 +17,29 @@ export default function Login() {
     setError('');
     setIsLoading(true);
 
-    // Simular delay de autenticación
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    console.log('🚀 Iniciando proceso de login...');
 
-    const result = login(email, password);
-    
-    if (result.success) {
-      navigate('/dashboard');
-    } else {
-      setError(result.error);
+    try {
+      const result = await login(email, password);
+      console.log('📊 Resultado del login:', result);
+      
+      if (result.success) {
+        console.log('✅ Login exitoso, navegando a dashboard...');
+        navigate('/dashboard');
+      } else {
+        console.log('❌ Login fallido:', result.error);
+        setError(result.error || 'Credenciales incorrectas');
+      }
+    } catch (err) {
+      console.error('💥 Error inesperado:', err);
+      setError('Error al conectar con el servidor');
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex items-center justify-center p-4">
-      {/* Elementos decorativos de fondo */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white opacity-10 rounded-full blur-3xl"></div>
@@ -68,6 +75,7 @@ export default function Login() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
               placeholder="tu.email@empresa.com"
               required
+              disabled={isLoading}
             />
           </div>
 
@@ -83,11 +91,13 @@ export default function Login() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition pr-12"
                 placeholder="••••••••"
                 required
+                disabled={isLoading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                disabled={isLoading}
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -99,6 +109,7 @@ export default function Login() {
               <input
                 type="checkbox"
                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                disabled={isLoading}
               />
               <span className="ml-2 text-sm text-gray-600">Recordarme</span>
             </label>

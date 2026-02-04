@@ -19,5 +19,15 @@ export const vacationService = {
     } catch (error) {
       throw error.response?.data || { message: 'Error al crear solicitud' };
     }
+  },
+
+  // Delete vacation request
+  deleteVacation: async (id) => {
+    try {
+      const response = await api.delete(`/vacations/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Error al cancelar solicitud' };
+    }
   }
 };

@@ -3,10 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import 'dotenv/config'; 
-
-console.log('🔑 JWT_SECRET cargado:', process.env.JWT_SECRET ? 'Sí ✅' : 'No ❌');
-console.log('📦 MONGODB_URI cargado:', process.env.MONGODB_URI ? 'Sí ✅' : 'No ❌');
 
 // Importar rutas
 import authRoutes from './routes/authRoutes.js';
@@ -17,15 +13,28 @@ import shiftRoutes from './routes/shiftRoutes.js';
 // Cargar variables de entorno
 dotenv.config();
 
+console.log('🔑 JWT_SECRET cargado:', process.env.JWT_SECRET ? 'Sí ✅' : 'No ❌');
+console.log('📦 MONGODB_URI cargado:', process.env.MONGODB_URI ? 'Sí ✅' : 'No ❌');
+
 // Conectar a la base de datos
 connectDB();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Configuración de CORS más específica
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware de logging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
 // Rutas
 app.use('/api/auth', authRoutes);
