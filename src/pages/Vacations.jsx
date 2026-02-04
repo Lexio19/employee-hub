@@ -1,17 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { vacationRequests } from '../data/mockData';
+import { vacationService } from '../services/api/vacationService';
 import { Calendar, Plus, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { differenceInDays } from 'date-fns';
 
 export default function Vacations() {
   const { user } = useAuth();
+  const [vacations, setVacations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
 
-  const userVacations = vacationRequests.filter(v => v.employeeId === user?.id);
+  useEffect(() => {
+    loadVacations();
+  }, []);
+
+  const loadVacations = async () => {
+    try {
+      setLoading(true);
+      const response = await vacationService.getVacations();
+      if (response.success) {
+        setVacations(response.data);
+      }
+    } catch (error) {
+      console.error('Error loading vacations:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const calculateDays = () => {
     if (startDate && endDate) {
@@ -22,7 +40,7 @@ export default function Vacations() {
     return 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const days = calculateDays();
     
@@ -31,11 +49,25 @@ export default function Vacations() {
       return;
     }
 
-    alert(`Solicitud enviada: ${days} días desde ${startDate} hasta ${endDate}`);
-    setShowForm(false);
-    setStartDate('');
-    setEndDate('');
-    setReason('');
+    try {
+      const response = await vacationService.createVacation({
+        startDate,
+        endDate,
+        days,
+        reason
+      });
+
+      if (response.success) {
+        alert(`Solicitud enviada: ${days} días desde ${startDate} hasta ${endDate}`);
+        setShowForm(false);
+        setStartDate('');
+        setEndDate('');
+        setReason('');
+        loadVacations();
+      }
+    } catch (error) {
+      alert(error.message || 'Error al crear la solicitud');
+    }
   };
 
   const getStatusBadge = (status) => {
@@ -65,9 +97,17 @@ export default function Vacations() {
     );
   };
 
+  if (loading) {
+    return (
+      <div className="p-8 flex items-center justify-center">
+        <div className="text-xl text-gray-600">Cargando vacaciones...</div>
+      </div>
+    );
+  }
+
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="p-4 lg:p-8 animate-fade-in">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 space-y-4 lg:space-y-0">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Mis Vacaciones</h1>
           <p className="text-gray-600 mt-1">Gestiona tus días de descanso</p>
@@ -122,7 +162,7 @@ export default function Vacations() {
 
       {/* Formulario de solicitud */}
       {showForm && (
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+        <div className="bg-white rounded-xl shadow-md p-6 mb-8 animate-scale-in">
           <h2 className="text-xl font-bold text-gray-800 mb-6">Nueva Solicitud de Vacaciones</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -177,7 +217,7 @@ export default function Vacations() {
               />
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
               <button
                 type="submit"
                 className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 font-medium"
@@ -203,16 +243,16 @@ export default function Vacations() {
         </div>
 
         <div className="divide-y divide-gray-200">
-          {userVacations.length === 0 ? (
+          {vacations.length === 0 ? (
             <div className="p-8 text-center text-gray-500">
               No tienes solicitudes de vacaciones aún
             </div>
           ) : (
-            userVacations.map((vacation) => (
-              <div key={vacation.id} className="p-6 hover:bg-gray-50 transition">
-                <div className="flex items-center justify-between">
+            vacations.map((vacation) => (
+              <div key={vacation._id} className="p-6 hover:bg-gray-50 transition">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-4 mb-2">
+                    <div className="flex flex-wrap items-center gap-3 mb-2">
                       <h3 className="text-lg font-semibold text-gray-800">
                         {new Date(vacation.startDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })} - {new Date(vacation.endDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
                       </h3>

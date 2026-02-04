@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { employees } from '../data/mockData';
+import { authService } from '../services/api/authService';
 
 const AuthContext = createContext();
 
@@ -23,19 +23,25 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = (email, password) => {
-    const foundUser = employees.find(
-      emp => emp.email === email && emp.password === password
-    );
-
-    if (foundUser) {
-      const { password, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-      return { success: true };
+  const login = async (email, password) => {
+    try {
+      const response = await authService.login(email, password);
+      
+      if (response.success) {
+        const userData = response.data;
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        return { success: true };
+      }
+      
+      return { success: false, error: 'Error al iniciar sesión' };
+    } catch (error) {
+      console.error('Login error:', error);
+      return { 
+        success: false, 
+        error: error.message || 'Credenciales incorrectas' 
+      };
     }
-
-    return { success: false, error: 'Credenciales incorrectas' };
   };
 
   const logout = () => {
