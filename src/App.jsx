@@ -8,9 +8,10 @@ import Payslips from './pages/Payslips';
 import Vacations from './pages/Vacations';
 import Shifts from './pages/Shifts';
 import Profile from './pages/Profile';
+import VacationManagement from './pages/VacationManagement';
 
-function PrivateRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
+function PrivateRoute({ children, requireManager = false }) {
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) {
     return (
@@ -20,7 +21,15 @@ function PrivateRoute({ children }) {
     );
   }
 
-  return isAuthenticated ? <Layout>{children}</Layout> : <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  if (requireManager && user?.role !== 'manager' && user?.role !== 'admin') {
+    return <Navigate to="/dashboard" />;
+  }
+
+  return <Layout>{children}</Layout>;
 }
 
 function App() {
@@ -51,6 +60,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <Vacations />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/vacation-management"
+              element={
+                <PrivateRoute requireManager={true}>
+                  <VacationManagement />
                 </PrivateRoute>
               }
             />

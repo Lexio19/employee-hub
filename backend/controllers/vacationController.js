@@ -210,3 +210,25 @@ export const cancelVacation = async (req, res) => {
     });
   }
 };
+
+// @desc    Obtener todas las solicitudes pendientes (solo managers/admin)
+// @route   GET /api/vacations/management/pending
+// @access  Private/Manager/Admin
+export const getAllPendingVacations = async (req, res) => {
+  try {
+    const vacations = await VacationRequest.find({ status: 'pending' })
+      .populate('employee', 'name email position department avatar vacationDays usedVacationDays')
+      .sort({ createdAt: 1 }); // Más antiguas primero
+
+    res.json({
+      success: true,
+      count: vacations.length,
+      data: vacations
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};

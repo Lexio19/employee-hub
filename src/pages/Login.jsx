@@ -140,9 +140,12 @@ export default function Login() {
         <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
           <p className="text-sm text-gray-700 font-medium mb-2">👤 Usuarios de prueba:</p>
           <div className="space-y-1 text-xs text-gray-600">
+            <h3> <b>Trabajadores</b></h3>
             <p className="font-mono">juan.perez@empresa.com / 123456</p>
             <p className="font-mono">maria.garcia@empresa.com / 123456</p>
             <p className="font-mono">carlos.lopez@empresa.com / 123456</p>
+            <h3 className="mt-4"><b>Administrador</b></h3>
+            <p className="font-mono">ana.martinez@empresa.com / 123456</p>
           </div>
         </div>
 
